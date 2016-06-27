@@ -43,8 +43,8 @@ function main () {
     var fSource = [
         "precision mediump float;",
         "void main(void) {",
-        "vec4 color = vec4("+ rgba.join(",") +");",
-        "gl_FragColor = color / 255.0;",
+            "vec4 color = vec4("+ rgba.join(",") +");",
+            "gl_FragColor = color / 255.0;",
         "}"
     ].join("\n");
 
