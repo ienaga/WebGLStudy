@@ -39,11 +39,17 @@ function main () {
 
 
     // フグメントシェーダー
-    var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
+    var rgba = [0, 0, 0, 1]; // Red, Green, Blue, Alpha
     var fSource = [
         "precision mediump float;",
         "void main(void) {",
-            "gl_FragColor = vec4("+ rgba.join(",") +");",
+            "vec2 pos = gl_FragCoord.xy/250.0 - 1.0;",
+            " if (length(pos) < 1.0) {",
+                "discard;",
+            "} else {",
+                "vec4 color = vec4("+ rgba.join(",") +");",
+                "gl_FragColor = color / 255.0;",
+            "}",
         "}"
     ].join("\n");
 
@@ -72,10 +78,13 @@ function main () {
     // 座標
     var vertices = [
         //  x座標, y座標
-        0.0,  0.0,
-        1.0,  1.0
+        -1.0,  1.0,
+        1.0,  1.0,
+        1.0,  -1.0,
+        -1.0,  -1.0,
+        -1.0,  1.0
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
-    gl.drawArrays(gl.LINE_STRIP, 0, vertices.length/2);
+    gl.drawArrays(gl.TRIANGLES, 0, vertices.length/2);
 
 }
