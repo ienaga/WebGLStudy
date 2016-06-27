@@ -14,7 +14,7 @@ function main () {
 
 
     // clear
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(1.0, 1.0, 1.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
 
@@ -39,7 +39,7 @@ function main () {
 
 
     // フグメントシェーダー
-    var rgba = [255, 255, 255, 255]; // Red, Green, Blue, Alpha
+    var rgba = [0, 0, 0, 255]; // Red, Green, Blue, Alpha
     var fSource = [
         "precision mediump float;",
         "void main(void) {",
