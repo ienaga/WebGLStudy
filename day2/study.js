@@ -7,9 +7,11 @@ document.addEventListener("DOMContentLoaded", function (event)
 function main () {
 
     // canvas
+    var w = 400; // 幅
+    var h = 400; // 高さ
     var canvas = document.getElementById("canvas");
-    canvas.width = 400;
-    canvas.height = 400;
+    canvas.width = w;
+    canvas.height = h;
     var gl = canvas.getContext("webgl");
 
 
@@ -23,7 +25,7 @@ function main () {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 
 
-    // 頂点シェーダー
+    // バーテックス(頂点)シェーダー
     var vSource = [
         "precision mediump float;",
         "attribute vec2 vertex;",
@@ -39,17 +41,11 @@ function main () {
 
 
     // フグメントシェーダー
-    var rgba = [0, 0, 0, 1]; // Red, Green, Blue, Alpha
+    var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
     var fSource = [
         "precision mediump float;",
         "void main(void) {",
-            "vec2 pos = gl_FragCoord.xy/250.0 - 1.0;",
-            " if (length(pos) < 1.0) {",
-                "discard;",
-            "} else {",
-                "vec4 color = vec4("+ rgba.join(",") +");",
-                "gl_FragColor = color / 255.0;",
-            "}",
+            "gl_FragColor = vec4("+ rgba.join(",") +");",
         "}"
     ].join("\n");
 
@@ -73,18 +69,45 @@ function main () {
     gl.enableVertexAttribArray(vertex);
     gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
 
+    // 座標セット
+    // 開始座標
+    var x = 100; // x座標
+    var y = 300; // y座標
+
+    // 向かいたい座標
+    var dx = 300; // x座標
+    var dy = 100; // y座標
+
+    // 線太さ
+    var lineWidth = 90;
+
+    // 始点と終点の角度を取得
+    var angle = Math.atan2(y - dy, x - dx) / (Math.PI / 180) * -1;
+
+    // 4点の座標をセット
+    var x1 = x + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
+    var y1 = y + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
+
+    var x2 = dx + Math.cos((angle + 90)  * Math.PI / 180) * lineWidth / 2;
+    var y2 = dy + Math.sin((angle + 90)  * Math.PI / 180) * lineWidth / 2 * -1;
+
+    var x3 = x + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
+    var y3 = y + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+
+    var x4 = dx + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
+    var y4 = dy + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+
+    var vertices = [
+        (x1-(w/2))/(w/2), -(y1-(h/2))/(h/2),
+        (x2-(w/2))/(w/2), -(y2-(h/2))/(h/2),
+        (x3-(w/2))/(w/2), -(y3-(h/2))/(h/2),
+        (x4-(w/2))/(w/2), -(y4-(h/2))/(h/2)
+    ];
+
 
     // 描画する
-    // 座標
-    var vertices = [
-        //  x座標, y座標
-        -1.0,  1.0,
-        1.0,  1.0,
-        1.0,  -1.0,
-        -1.0,  -1.0,
-        -1.0,  1.0
-    ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
-    gl.drawArrays(gl.TRIANGLES, 0, vertices.length/2);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices.length/2);
+
 
 }

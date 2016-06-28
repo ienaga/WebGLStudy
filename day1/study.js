@@ -7,9 +7,11 @@ document.addEventListener("DOMContentLoaded", function (event)
 function main () {
 
     // canvas
+    var w = 400;
+    var h = 400;
     var canvas = document.getElementById("canvas");
-    canvas.width = 400;
-    canvas.height = 400;
+    canvas.width = w;
+    canvas.height = h;
     var gl = canvas.getContext("webgl");
 
 
@@ -23,7 +25,7 @@ function main () {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 
 
-    // 頂点シェーダー
+    // バーテックス(頂点)シェーダー
     var vSource = [
         "precision mediump float;",
         "attribute vec2 vertex;",
@@ -37,7 +39,7 @@ function main () {
     gl.compileShader(vShader);
     gl.getShaderParameter(vShader, gl.COMPILE_STATUS);
 
-
+    
     // フグメントシェーダー
     var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
     var fSource = [
@@ -68,13 +70,22 @@ function main () {
     gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
 
 
-    // 描画する
-    // 座標
+    // 開始座標
+    var x = 200; // x座標
+    var y = 200; // y座標
+
+    // 向かいたい座標
+    var dx = 400; // x座標
+    var dy = 0; // y座標
+
+    // 座標をセット
     var vertices = [
-        //  x座標, y座標
-        0.0,  0.0,
-        1.0,  1.0
+        (x-(w/2))/(w/2), -(y-(h/2))/(h/2),
+        (dx-(w/2))/(w/2), -(dy-(h/2))/(h/2)
     ];
+
+
+    // 描画する
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
     gl.drawArrays(gl.LINE_STRIP, 0, vertices.length/2);
 
