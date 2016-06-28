@@ -85,17 +85,17 @@ function main () {
     var angle = Math.atan2(y - dy, x - dx) / (Math.PI / 180) * -1;
 
     // 4点の座標をセット
-    var x1 = x + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
-    var y1 = y + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x1 = x + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
+    var y1 = y + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
 
-    var x2 = dx + Math.cos((angle + 90)  * Math.PI / 180) * lineWidth / 2;
-    var y2 = dy + Math.sin((angle + 90)  * Math.PI / 180) * lineWidth / 2 * -1;
+    var x2 = dx + Math.cos((angle + 270)  * Math.PI / 180) * lineWidth / 2;
+    var y2 = dy + Math.sin((angle + 270)  * Math.PI / 180) * lineWidth / 2 * -1;
 
-    var x3 = x + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
-    var y3 = y + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x3 = x + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
+    var y3 = y + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
 
-    var x4 = dx + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
-    var y4 = dy + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x4 = dx + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
+    var y4 = dy + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
 
     var vertices = [
         (x1-(w/2))/(w/2), -(y1-(h/2))/(h/2),
