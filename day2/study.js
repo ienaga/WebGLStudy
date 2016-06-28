@@ -70,11 +70,11 @@ function main () {
     gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
 
     // 座標セット
-    // 開始座標
+    // 始点
     var x = 100; // x座標
     var y = 300; // y座標
 
-    // 向かいたい座標
+    // 終点
     var dx = 300; // x座標
     var dy = 100; // y座標
 
