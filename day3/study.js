@@ -46,12 +46,9 @@ function main () {
 
 
     // フグメントシェーダー
-    gl.getExtension('OES_standard_derivatives');
     var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
     var fSource = [
-        "#extension GL_OES_standard_derivatives : enable",
         "precision mediump float;",
-        "varying vec2 p;",
         "void main(void) {",
             "vec3 s = vec3("+ x +", "+ (h - y) +", "+ r +");",
             "float x = gl_FragCoord.x - s[0];",
