@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", function (event)
 
 function main () {
 
+    // 座標
+    var x = 200; // 中心x座標
+    var y = 200; // 中心y座標
+    var r = 80; // 半径
+
     // canvas
     var w = 400; // 幅
     var h = 400; // 高さ
@@ -18,6 +23,11 @@ function main () {
     // clear
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+
+    // alphaを有効にする
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
 
     // 空のバッファオブジェクトを生成
@@ -42,12 +52,26 @@ function main () {
 
     // フグメントシェーダー
     var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
-    var fSource = [
-        "precision mediump float;",
-        "void main(void) {",
-            "gl_FragColor = vec4("+ rgba.join(",") +");",
-        "}"
-    ].join("\n");
+var fSource = [
+    "precision mediump float;",
+    "void main(void) {",
+        "vec3 s = vec3("+ x +", "+ (h - y) +", "+ r +");",
+        "float x = gl_FragCoord.x - s[0];",
+        "float y = gl_FragCoord.y - s[1];",
+        "float d = sqrt(x * x + y * y);",
+        "float r = s[2] + 0.5;",
+        "if (d < r) {",
+            "vec4 color = vec4("+ rgba.join(",") +");",
+            "float alpha = 1.0 - (d + 1.0 - r);",
+            "if (alpha > 1.0) {",
+                "alpha = 1.0;",
+            "}",
+            "gl_FragColor = color * alpha;",
+        "} else {",
+            "discard;",
+        "}",
+    "}"
+].join("\n");
 
     var fShader = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fShader, fSource);
@@ -69,33 +93,21 @@ function main () {
     gl.enableVertexAttribArray(vertex);
     gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
 
+
     // 座標セット
-    // 始点
-    var x = 100; // x座標
-    var y = 300; // y座標
-
-    // 終点
-    var dx = 300; // x座標
-    var dy = 100; // y座標
-
-    // 線太さ
-    var lineWidth = 90;
-
-    // 始点と終点の角度を取得
-    var angle = Math.atan2(y - dy, x - dx) / (Math.PI / 180) * -1;
 
     // 4点の座標をセット
-    var x1 = x + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
-    var y1 = y + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x1 = x - r;
+    var y1 = y - r;
 
-    var x2 = dx + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
-    var y2 = dy + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x2 = x + r;
+    var y2 = y - r;
 
-    var x3 = x + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
-    var y3 = y + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x3 = x - r;
+    var y3 = y + r;
 
-    var x4 = dx + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
-    var y4 = dy + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x4 = x + r;
+    var y4 = y + r;
 
     var vertices = [
         (x1-(w/2))/(w/2), -(y1-(h/2))/(h/2),
