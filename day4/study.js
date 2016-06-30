@@ -52,26 +52,26 @@ function main () {
 
     // フグメントシェーダー
     var rgba = [0.0, 0.0, 0.0, 1.0]; // Red, Green, Blue, Alpha
-var fSource = [
-    "precision mediump float;",
-    "void main(void) {",
-        "vec3 s = vec3("+ x +", "+ (h - y) +", "+ r +");",
-        "float x = gl_FragCoord.x - s[0];",
-        "float y = gl_FragCoord.y - s[1];",
-        "float d = sqrt(x * x + y * y);",
-        "float r = s[2] + 0.5;",
-        "if (d < r) {",
-            "vec4 color = vec4("+ rgba.join(",") +");",
-            "float alpha = 1.0 - (d + 1.0 - r);",
-            "if (alpha > 1.0) {",
-                "alpha = 1.0;",
+    var fSource = [
+        "precision mediump float;",
+        "void main(void) {",
+            "vec3 s = vec3("+ x +", "+ (h - y) +", "+ r +");",
+            "float x = gl_FragCoord.x - s[0];",
+            "float y = gl_FragCoord.y - s[1];",
+            "float d = sqrt(x * x + y * y);",
+            "float r = s[2] + 0.5;",
+            "if (d < r) {",
+                "vec4 color = vec4("+ rgba.join(",") +");",
+                "float alpha = 1.0 - (d + 1.0 - r);",
+                "if (alpha > 1.0) {",
+                    "alpha = 1.0;",
+                "}",
+                "gl_FragColor = color * alpha;",
+            "} else {",
+                "discard;",
             "}",
-            "gl_FragColor = color * alpha;",
-        "} else {",
-            "discard;",
-        "}",
-    "}"
-].join("\n");
+        "}"
+    ].join("\n");
 
     var fShader = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fShader, fSource);
