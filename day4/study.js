@@ -62,10 +62,7 @@ function main () {
             "float r = s[2] + 0.5;",
             "if (d < r) {",
                 "vec4 color = vec4("+ rgba.join(",") +");",
-                "float alpha = 1.0 - (d + 1.0 - r);",
-                "if (alpha > 1.0) {",
-                    "alpha = 1.0;",
-                "}",
+                "float alpha = clamp(1.0 - (d + 1.0 - r), 0.0, 1.0);",
                 "gl_FragColor = color * alpha;",
             "} else {",
                 "discard;",
@@ -116,10 +113,8 @@ function main () {
         (x4-(w/2))/(w/2), -(y4-(h/2))/(h/2)
     ];
 
-
     // 描画する
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices.length/2);
-
 
 }
