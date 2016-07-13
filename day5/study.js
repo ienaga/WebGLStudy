@@ -6,6 +6,16 @@ document.addEventListener("DOMContentLoaded", function (event)
 
 function main () {
 
+
+    // canvas
+    var w = 400; // 幅
+    var h = 400; // 高さ
+    var canvas = document.getElementById("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    var gl = canvas.getContext("webgl");
+
+
     // 座標セット
     // 始点
     var x = 50; // x座標
@@ -19,30 +29,36 @@ function main () {
     var lineWidth = 100;
 
 
-    // canvas
-    var w = 400; // 幅
-    var h = 400; // 高さ
-    var canvas = document.getElementById("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    var gl = canvas.getContext("webgl");
-
-
     // 始点と終点の角度を取得
     var angle = Math.atan2(y - dy, x - dx) / (Math.PI / 180) * -1;
 
+    // 始点と終点の距離
+    var l = Math.sqrt(Math.pow(x - dx,2) + Math.pow(y - dy,2));
+
+    // 中心点
+    var px = x + Math.cos(angle * Math.PI / 180) * l / 2 * -1;
+    var py = y + Math.sin(angle * Math.PI / 180) * l / 2;
+
+    // border
+    var lw = lineWidth + 1;
+    var _x = px - Math.cos(angle * Math.PI / 180) * (l+1) / 2 * -1;
+    var _y = py - Math.sin(angle * Math.PI / 180) * (l+1) / 2;
+    var _dx = px + Math.cos(angle * Math.PI / 180) * (l+1) / 2 * -1;
+    var _dy = py + Math.sin(angle * Math.PI / 180) * (l+1) / 2;
+    
+
     // 4点の座標をセット
-    var x1 = x + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
-    var y1 = y + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x1 = _x + Math.cos((angle + 270) * Math.PI / 180) * lw / 2;
+    var y1 = _y + Math.sin((angle + 270) * Math.PI / 180) * lw / 2 * -1;
 
-    var x2 = dx + Math.cos((angle + 270) * Math.PI / 180) * lineWidth / 2;
-    var y2 = dy + Math.sin((angle + 270) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x2 = _dx + Math.cos((angle + 270) * Math.PI / 180) * lw / 2;
+    var y2 = _dy + Math.sin((angle + 270) * Math.PI / 180) * lw / 2 * -1;
 
-    var x3 = dx + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
-    var y3 = dy + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x3 = _dx + Math.cos((angle + 90) * Math.PI / 180) * lw / 2;
+    var y3 = _dy + Math.sin((angle + 90) * Math.PI / 180) * lw / 2 * -1;
 
-    var x4 = x + Math.cos((angle + 90) * Math.PI / 180) * lineWidth / 2;
-    var y4 = y + Math.sin((angle + 90) * Math.PI / 180) * lineWidth / 2 * -1;
+    var x4 = _x + Math.cos((angle + 90) * Math.PI / 180) * lw / 2;
+    var y4 = _y + Math.sin((angle + 90) * Math.PI / 180) * lw / 2 * -1;
 
     var vertices = [
         (x1-(w/2))/(w/2), -(y1-(h/2))/(h/2),
@@ -50,6 +66,7 @@ function main () {
         (x3-(w/2))/(w/2), -(y3-(h/2))/(h/2),
         (x4-(w/2))/(w/2), -(y4-(h/2))/(h/2)
     ];
+
 
     // clear
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
