@@ -6,7 +6,7 @@ WebGLを勉強した時の備忘録
 * 3日目: [円を描く](http://qiita.com/ienaga/items/3263a752da3287a6c4b6)
 * 4日目: [滑らか(アンチエイリアス)な円を描く](http://qiita.com/ienaga/items/02e4b8d8c2a975ab86e1)
 * 5日目: [滑らか(アンチエイリアス)な線(矩形)を描く](http://qiita.com/ienaga/items/6d8c41cb5caa851842bf)
-* 6日目: 線の先端を丸くする(round)
+* 6日目: [線の先端を丸くする(round)](http://qiita.com/ienaga/items/b9c6460d59078c4b705b)
 * 7日目: 線の先端に矩形をたす(square)
 * 8日目: 線の2次ベジェを描く
 * 9日目: 塗りの2次ベジェを描く
