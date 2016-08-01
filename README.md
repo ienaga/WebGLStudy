@@ -9,7 +9,7 @@ WebGLを勉強した時の備忘録
 * 6日目: [線の先端を丸くする(round)](http://qiita.com/ienaga/items/b9c6460d59078c4b705b)
 * 7日目: [線の先端に矩形をたす(square)](http://qiita.com/ienaga/items/ed5cb207f70608f5e544)
 * 8日目: [滑らか(アンチエイリアス)な線の2次ベジェを描く](http://qiita.com/ienaga/items/5c50476cb0b760d5a20c)
-* 9日目: 線の2次ベジェの先端を丸くする
+* 9日目: [線の2次ベジェの先端を丸くする](http://qiita.com/ienaga/items/34b9a3193309c82058d6)
 * 10日目: 線の2次ベジェの先端に矩形をたす
 * 11日目: 滑らか(アンチエイリアス)な線の3次ベジェを描く
 * 12日目: 線の3次ベジェの先端を丸くする
