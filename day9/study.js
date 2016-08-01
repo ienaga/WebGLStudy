@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function (event)
 function main () {
 
     // canvas
-    var w = 500; // 幅
-    var h = 500; // 高さ
+    var w = 400; // 幅
+    var h = 400; // 高さ
     var canvas = document.getElementById("canvas");
     canvas.width = w;
     canvas.height = h;
@@ -17,15 +17,15 @@ function main () {
 
     // 座標セット
     // 始点
-    var x = 100; // x座標
+    var x = 50; // x座標
     var y = 300; // y座標
 
     // 放物線座標
-    var cx = 250; // x座標
+    var cx = 200; // x座標
     var cy = 100; // y座標
 
     // 終点
-    var dx = 400; // x座標
+    var dx = 350; // x座標
     var dy = 300; // y座標
 
     // 線太さ
