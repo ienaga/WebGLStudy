@@ -21,7 +21,7 @@ function main () {
     var y = 300; // y座標
 
     // 放物線座標
-    var cx = 290; // x座標
+    var cx = 200; // x座標
     var cy = 100; // y座標
 
     // 終点
@@ -45,7 +45,7 @@ function main () {
     }
 
     // border
-    var lw = lineWidth + 1;
+    var lw = lineWidth + 1.0;
 
     // 4点の座標をセット
     var x1 = x + Math.cos((angle1 + a1) * Math.PI / 180) * lw / 2;
