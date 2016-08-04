@@ -161,10 +161,10 @@ function main () {
             "vec2 p0 = vec2("+ x +", "+ (h-y) +") - xy;",
             "vec2 p1 = vec2("+ cx +", "+ (h-cy) +") - xy;",
             "vec2 p2 = vec2("+ dx +", "+ (h-dy) +") - xy;",
-            "float d = length(get_distance_vector(p0, p1, p2)) + 0.8;",
-            "vec2 t = vec2("+ (lw/2) +", 0.0);",
+            "float d = length(get_distance_vector(p0, p1, p2));",
+            "vec2 t = vec2("+ ((lineWidth/2)-0.5) +", 0.0);",
             "if(d > t.x) {",
-                "alpha = clamp(1.0 - smoothstep(d + 0.25, t.x, t.x + 0.25), 0.0, 1.0);",
+                "alpha = clamp(1.0 - smoothstep(d, t.x, t.x + 0.25), 0.0, 1.0);",
             "}",
             "gl_FragColor = vec4("+ rgba.join(",") +") * alpha;",
         "}"
