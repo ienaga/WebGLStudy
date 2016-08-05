@@ -17,12 +17,12 @@ function main () {
 
     // 座標セット
     // 始点
-    var x = 100; // x座標
+    var x = 50; // x座標
     var y = 280; // y座標
 
     // 終点
-    var dx = 300; // x座標
-    var dy = 280; // y座標
+    var dx = 350; // x座標
+    var dy = 130; // y座標
 
     // 線太さ
     var lineWidth = 100;
